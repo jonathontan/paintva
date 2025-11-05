@@ -3,11 +3,17 @@ import { IconButton, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import colors from "../../colors";
 import constants from "../../constants";
-import elementStore from "../../stores/ElementStore";
+import elementStore, { ToolType } from "../../stores/ElementStore";
 import styles from "./Elementbar.module.css";
 
 const Elementbar = observer(() => {
   const { selectedElement, setElement } = elementStore;
+
+  const handleToggle = (type: ToolType) => {
+    if (selectedElement === type)
+      setElement('none')
+    else setElement(type)
+  }
 
   return (
     <div className={styles.container}>
@@ -18,7 +24,7 @@ const Elementbar = observer(() => {
             color: selectedElement === element.type ? colors.teal : colors.green,
             ':hover': { color: colors.teal }
           }}
-          onClick={() => setElement(element.type)}>
+          onClick={() => handleToggle(element.type)}>
           <Icon icon={element.icon} fontSize={30} />
         </IconButton>
       ))}

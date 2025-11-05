@@ -7,7 +7,7 @@ import ColorPicker from "../colorpicker/ColorPicker";
 import styles from "./ControlPanel.module.css";
 
 const ControlPanel = observer(() => {
-  const { selectedElement, selectedShape, setShape } = elementStore;
+  const { selectedElement, setShape } = elementStore;
   const [position, setPosition] = useState<{ x: number, y: number }>({ x: 20, y: 20 })
 
   return (

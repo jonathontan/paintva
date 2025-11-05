@@ -4,7 +4,7 @@ import styles from "./Canvas.module.css";
 
 const Canvas = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
-  const [stageDimension, setStageDimension] = useState<Record<string, number>>({ width: 0, height: 0 })
+  const [stageDimension, setStageDimension] = useState<{width: number, height: number}>({ width: 0, height: 0 })
 
   useEffect(() => {
     if (canvasRef.current) {

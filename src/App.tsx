@@ -1,8 +1,13 @@
+import "./App.css";
+import Canvas from "./components/canvas/Canvas";
+import Elementbar from "./components/elementbar/Elementbar";
+
 const App = () => {
 
   return (
-    <div>
-      <h1>React + TypeScript + MobX</h1>
+    <div className="container">
+      <Elementbar />
+      <Canvas />
     </div>
   )
 }

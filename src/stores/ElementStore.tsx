@@ -6,7 +6,7 @@ type ShapeType = 'circle' | 'rect';
 
 class ElementStore {
   selectedElement: ToolType = 'none';
-  selectedColor: string = colors.black;
+  selectedColor: string = colors.white;
   selectedShape: ShapeType = 'circle';
 
   constructor() {

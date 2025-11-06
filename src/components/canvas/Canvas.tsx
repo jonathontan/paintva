@@ -1,23 +1,22 @@
 import Konva from "konva";
 import { observer } from "mobx-react-lite";
 import { useEffect, useRef, useState } from "react";
-import { Layer, Line, Stage } from "react-konva";
-import elementStore, { ToolType } from "../../stores/ElementStore";
+import { Layer, Line, Rect, Stage } from "react-konva";
+import elementStore from "../../stores/ElementStore";
+import layerStore from "../../stores/LayerStore";
 import ControlPanel from "../controlpanel/ControlPanel";
 import LayerPanel from "../layerpanel/LayerPanel";
 import styles from "./Canvas.module.css";
 
+
 const Canvas = observer(() => {
-  const { selectedElement, selectedColor, brushStrokeWidth } = elementStore;
+  const { selectedElement, selectedColor, selectedShape, brushStrokeWidth,
+    shapeWidth, shapeHeight, setShape } = elementStore;
+  const { layers, addLayer, setBrushPoints } = layerStore;
   const canvasRef = useRef<HTMLDivElement>(null);
   const [stageDimension, setStageDimension] = useState<{ width: number, height: number }>({ width: 0, height: 0 })
-  const [brushLines, setBrushLines] = useState<{
-    type: ToolType,
-    color: string,
-    width: number,
-    points: number[]
-  }[]>([]);
-  const isDrawing = useRef(false);
+  const [brushLineId, setBrushLineId] = useState<string>('')
+  const isDrawing = useRef<boolean>(false);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -28,19 +27,59 @@ const Canvas = observer(() => {
     }
   }, []);
 
+  useEffect(() => {
+    console.log('layers', layers)
+  }, [layers])
+
+  const handleCanvasClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
+    if (selectedShape === 'none' && selectedElement !== 'fill') return;
+
+    const stage = e.target.getStage();
+    const pointer = stage?.getPointerPosition();
+    if (!pointer) return
+
+    if (selectedElement === 'shape') {
+      addLayer({
+        id: String(layers.length + 1),
+        type: 'shape',
+        color: selectedColor,
+        shape: selectedShape,
+        width: shapeWidth,
+        height: shapeHeight,
+        x: pointer.x,
+        y: pointer.y
+      });
+      setShape('none')
+    } else {
+      addLayer({
+        id: String(layers.length + 1),
+        type: 'fill',
+        color: selectedColor
+      });
+    }
+  }
+
   const handleMouseDown = (e: Konva.KonvaEventObject<MouseEvent>) => {
+    if (selectedElement !== 'brush' && selectedElement !== 'eraser') return;
+
     isDrawing.current = true;
     const stage = e.target.getStage();
     const pointer = stage?.getPointerPosition();
-    if (pointer) {
-      const newLine = {
-        type: selectedElement,
+    if (!pointer) return
+
+    if (selectedElement === 'brush' || selectedElement === 'eraser') {
+      const id = String(layers.length + 1)
+      addLayer({
+        id: id,
+        type: 'brush',
         color: selectedColor,
-        width: brushStrokeWidth,
-        points: [pointer.x, pointer.y]
-      }
-      setBrushLines(prev => [...prev, newLine])
-    };
+        points: [pointer.x, pointer.y],
+        strokeWidth: brushStrokeWidth,
+        isEraser: selectedElement === 'eraser'
+      });
+      setBrushLineId(id);
+      isDrawing.current = true;
+    }
   };
 
   const handleMouseMove = (e: Konva.KonvaEventObject<MouseEvent>) => {
@@ -48,16 +87,14 @@ const Canvas = observer(() => {
 
     const stage = e.target.getStage();
     const pointer = stage?.getPointerPosition();
-    const lastLine = brushLines[brushLines.length - 1];
+    if (!pointer) return;
 
-    if (pointer)
-      lastLine.points = lastLine.points.concat([pointer?.x, pointer.y]);
-    brushLines.splice(brushLines.length - 1, 1, lastLine);
-    setBrushLines(brushLines.concat());
+    setBrushPoints(brushLineId, pointer)
   };
 
   const handleMouseUp = () => {
     isDrawing.current = false;
+    setBrushLineId('');
   };
 
   return (
@@ -68,17 +105,28 @@ const Canvas = observer(() => {
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
+        onClick={handleCanvasClick}
       >
+        {layers.map(layer => (
+          <Layer key={layer.id}>
+            {layer.type === 'shape' && layer.shape === 'rect' && (
+              <Rect x={layer.x} y={layer.y} width={layer.width} height={layer.height} stroke={'black'} draggable />
+            )}
+          </Layer>
+        ))}
         <Layer>
-          {brushLines.map((line, index) => (
+          {layers.map(layer => (
             <Line
-              key={index}
-              points={line.points}
-              stroke={line.color}
-              strokeWidth={line.width}
+              key={layer.id}
+              points={layer.points}
+              stroke={layer.color}
+              strokeWidth={layer.strokeWidth}
+              lineCap="round"
+              lineJoin="round"
               globalCompositeOperation={
-                line.type === 'eraser' ? 'destination-out' : 'source-over'
+                layer.isEraser ? 'destination-out' : 'source-over'
               }
+
             />
           ))}
         </Layer>

@@ -10,7 +10,12 @@ class ElementStore {
   selectedColor: string = colors.black;
   selectedShape: ShapeType = 'none';
   selectedBrush: BrushType = 'none';
+
+  brushArray: [] = [];
   brushStrokeWidth: number = 1;
+
+  shapeWidth: number = 40;
+  shapeHeight: number = 40;
 
   constructor() {
     makeAutoObservable(this);
@@ -34,6 +39,14 @@ class ElementStore {
 
   setBrushStrokeWidth = (stroke: number) => {
     this.brushStrokeWidth = stroke;
+  }
+
+  setShapeWidth = (width: number) => {
+    this.shapeWidth = width;
+  }
+
+  setShapeHeight = (height: number) => {
+    this.shapeHeight = height;
   }
 }
 

@@ -7,7 +7,7 @@ export type ShapeType = 'circle' | 'rect' | 'none';
 class ElementStore {
   selectedElement: ToolType = 'none';
   selectedColor: string = colors.white;
-  selectedShape: ShapeType = 'circle';
+  selectedShape: ShapeType = 'none';
 
   constructor() {
     makeAutoObservable(this);

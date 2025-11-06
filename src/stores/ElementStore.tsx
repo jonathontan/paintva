@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import colors from "../colors";
 
 export type ToolType = 'brush' | 'shape' | 'fill' | 'eraser'| 'none';
-type ShapeType = 'circle' | 'rect';
+export type ShapeType = 'circle' | 'rect' | 'none';
 
 class ElementStore {
   selectedElement: ToolType = 'none';

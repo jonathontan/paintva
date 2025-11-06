@@ -1,14 +1,23 @@
+import { Icon } from "@iconify/react";
+import { IconButton } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
-import { Group, Layer, Rect, Circle, Stage, Text, } from "react-konva";
+import { Group, Layer, Rect, Stage, Text, } from "react-konva";
 import colors from "../../colors";
-import elementStore from "../../stores/ElementStore";
+import constants from "../../constants";
+import elementStore, { ShapeType } from "../../stores/ElementStore";
 import ColorPicker from "../colorpicker/ColorPicker";
 import styles from "./ControlPanel.module.css";
 
 const ControlPanel = observer(() => {
-  const { selectedElement, setShape } = elementStore;
+  const { selectedElement, selectedShape, setShape } = elementStore;
   const [position, setPosition] = useState<{ x: number, y: number }>({ x: 20, y: 20 })
+
+  const handleShapeToggle = (type: ShapeType) => {
+    if (selectedShape === type)
+      setShape('none')
+    else setShape(type)
+  }
 
   return (
     <div className={styles.container}>
@@ -39,33 +48,26 @@ const ControlPanel = observer(() => {
               x={10}
               y={10}
             />
-            <Group
-              visible={selectedElement === 'shape'}
-            >
-              <Rect
-                width={50}
-                height={30}
-                stroke={colors.black}
-                x={25}
-                y={100}
-                onMouseOver={(e) => e.target.getStage()?.container().style.setProperty("cursor", "pointer")}
-                onMouseLeave={(e) => e.target.getStage()?.container().style.setProperty("cursor", "default")}
-                onClick={() => setShape('rect')}
-              />
-              <Circle
-                radius={20}
-                stroke={colors.black}
-                x={50}
-                y={175}
-                onMouseOver={(e) => e.target.getStage()?.container().style.setProperty("cursor", "pointer")}
-                onMouseLeave={(e) => e.target.getStage()?.container().style.setProperty("cursor", "default")}
-                onClick={() => setShape('circle')}
-              />
-            </Group>
           </Group>
         </Layer>
       </Stage>
       <ColorPicker position={position} />
+      {selectedElement === 'shape' &&
+        constants.shapes.map(({ type, icon }, index) => (
+          <IconButton
+            key={type}
+            sx={{
+              position: 'absolute',
+              top: position.y + 80 + (index * 60),
+              left: position.x + 15,
+              zIndex: 11,
+              color: selectedShape === type ? colors.dwhite : colors.black
+            }}
+            onClick={() => handleShapeToggle(type)}
+          >
+            <Icon icon={icon} fontSize={50} />
+          </IconButton>
+        ))}
     </div>
   )
 })

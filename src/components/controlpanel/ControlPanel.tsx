@@ -167,6 +167,7 @@ const ControlPanel = observer(({ isDrawing }: Props) => {
                 color: selectedShapeAction === 'shapeHeight' ? colors.dwhite : colors.black
               }}
                 onClick={() => handleShapeActionToggle('shapeHeight')}
+                disabled={selectedShape === 'circle'}
               >
                 <Icon icon="carbon:fit-to-height" fontSize={40} />
               </IconButton>

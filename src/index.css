@@ -19,3 +19,20 @@ body,
 body {
   margin: 0;
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--white);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--teal);
+}

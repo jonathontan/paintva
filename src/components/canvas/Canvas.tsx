@@ -108,7 +108,7 @@ const Canvas = observer(() => {
         {layers.map(layer => (
           <Layer key={layer.id}>
             {layer.type === 'shape' && layer.shape === 'rect' && (
-              <Rect id={layer.id}  x={layer.x} y={layer.y} width={layer.width} height={layer.height} stroke={layer.color} draggable />
+              <Rect id={layer.id} x={layer.x} y={layer.y} width={layer.width} height={layer.height} stroke={layer.color} draggable />
             )}
             {layer.type === 'shape' && layer.shape === 'circle' && (
               <Circle id={layer.id} x={layer.x} y={layer.y} radius={layer.width} stroke={layer.color} draggable />

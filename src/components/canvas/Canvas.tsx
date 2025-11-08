@@ -1,7 +1,7 @@
 import Konva from "konva";
 import { observer } from "mobx-react-lite";
 import { useEffect, useRef, useState } from "react";
-import { Layer, Line, Rect, Stage } from "react-konva";
+import { Circle, Layer, Line, Rect, Stage } from "react-konva";
 import elementStore from "../../stores/ElementStore";
 import layerStore from "../../stores/LayerStore";
 import ControlPanel from "../controlpanel/ControlPanel";
@@ -110,7 +110,13 @@ const Canvas = observer(() => {
         {layers.map(layer => (
           <Layer key={layer.id}>
             {layer.type === 'shape' && layer.shape === 'rect' && (
-              <Rect x={layer.x} y={layer.y} width={layer.width} height={layer.height} stroke={'black'} draggable />
+              <Rect x={layer.x} y={layer.y} width={layer.width} height={layer.height} stroke={layer.color} draggable />
+            )}
+            {layer.type === 'shape' && layer.shape === 'circle' && (
+              <Circle x={layer.x} y={layer.y} radius={layer.width} stroke={layer.color} draggable />
+            )}
+            {layer.type === 'fill' && (
+              <Rect width={stageDimension.width} height={stageDimension.height} fill={layer.color} />
             )}
           </Layer>
         ))}

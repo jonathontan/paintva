@@ -17,7 +17,7 @@ interface LayerType {
 
 class LayerStore {
   layers: LayerType[] = [];
-  selectedLayer: LayerType = this.layers[this.layers.length - 1];
+  selectedLayer: LayerType | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -25,21 +25,23 @@ class LayerStore {
 
   addLayer = (layer: LayerType) => {
     this.layers.push(layer);
+    this.selectedLayer = layer;
   }
 
   removeLayer = (id: string) => {
     this.layers = this.layers.filter(layer => layer.id !== id);
+    this.selectedLayer = null;
   }
 
   setSelectedLayer = (id: string) => {
-    const layer = this.layers.find(layer => layer.id === id)
+    const layer = this.layers.find(layer => layer.id === id);
     if (layer) this.selectedLayer = layer;
   }
 
   setBrushPoints = (id: string, pointer: {x: number, y: number}) => {
-    const layer = this.layers.find(layer => layer.id === id)
+    const layer = this.layers.find(layer => layer.id === id);
     if (layer && layer.type === 'brush')
-      layer.points = [...(layer.points || []), pointer.x, pointer.y]
+      layer.points = [...(layer.points || []), pointer.x, pointer.y];
   }
 }
 

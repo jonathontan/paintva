@@ -46,8 +46,6 @@ const ControlPanel = observer(({ isDrawing }: Props) => {
   };
 
   const handleShapeActionToggle = (type: ShapeActionType) => {
-    console.log(selectedShapeAction, type)
-    
     if (selectedShapeAction === type) {
       setSelectedShapeAction('none');
       setShowWidthSlider(false);

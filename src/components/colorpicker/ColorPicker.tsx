@@ -16,7 +16,7 @@ const ColorPicker = observer(({ type, top, left }: Props) => {
     <>
       <input
         className={styles.input}
-        hidden={selectedElement === 'eraser' || selectedElement === 'none'}
+        hidden={selectedElement === 'eraser' || selectedElement === 'none' || selectedElement === 'image'}
         type="color"
         value={type === 'color' ? selectedColor : shapeFill}
         onChange={(e) => type === 'color' ? setColor(e.target.value) : setShapeFill(e.target.value)}

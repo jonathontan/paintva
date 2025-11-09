@@ -3,8 +3,8 @@ import { ShapeType } from "./ElementStore";
 
 interface LayerType {
   id: string
-  type: 'brush'| 'shape' | 'fill'
-  color: string
+  type: 'brush'| 'shape' | 'fill' | 'image'
+  color?: string
   shape?: ShapeType
   width?: number
   height?: number
@@ -13,6 +13,7 @@ interface LayerType {
   strokeWidth?: number
   x?: number
   y?: number
+  src?: string
   isEraser?: boolean
 }
 

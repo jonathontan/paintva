@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import colors from "../colors";
 
-export type ToolType = 'brush' | 'shape' | 'fill' | 'eraser'| 'none';
+export type ToolType = 'brush' | 'shape' | 'fill' | 'eraser'| 'image' | 'none';
 export type ShapeType = 'circle' | 'rect' | 'none';
 export type BrushType = 'stroke' | 'none'
 

@@ -5,9 +5,9 @@ import { Circle, Layer, Line, Rect, Stage } from "react-konva";
 import elementStore from "../../stores/ElementStore";
 import layerStore from "../../stores/LayerStore";
 import ControlPanel from "../controlpanel/ControlPanel";
+import KonvaImage from "../konvaimage/KonvaImage";
 import LayerPanel from "../layerpanel/LayerPanel";
 import styles from "./Canvas.module.css";
-
 
 const Canvas = observer(() => {
   const { selectedElement, selectedColor, selectedShape, brushStrokeWidth,
@@ -118,6 +118,9 @@ const Canvas = observer(() => {
             )}
             {layer.type === 'fill' && (
               <Rect id={layer.id} width={stageDimension.width} height={stageDimension.height} fill={layer.color} />
+            )}
+            {layer.type === 'image' && layer.src && (
+              <KonvaImage id={layer.id} src={layer.src} />
             )}
           </Layer>
         ))}

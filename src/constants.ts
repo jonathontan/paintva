@@ -9,7 +9,8 @@ const elements: {
     { type: 'brush', icon: 'material-symbols:brush' },
     { type: 'shape', icon: 'fluent:shapes-28-regular' },
     { type: 'fill', icon: 'fluent:paint-bucket-24-filled' },
-    { type: 'eraser', icon: 'solar:eraser-bold-duotone' }
+    { type: 'eraser', icon: 'solar:eraser-bold-duotone' },
+    { type: 'image', icon: 'mdi-light:image' }
   ]
 
 const shapes: {

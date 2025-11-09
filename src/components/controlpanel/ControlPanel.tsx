@@ -78,7 +78,7 @@ const ControlPanel = observer(({ isDrawing }: Props) => {
         onMouseMove={() => isDrawing.current = false}
         x={position.x}
         y={position.y}
-        visible={selectedElement !== 'eraser' && selectedElement !== 'none'}
+        visible={selectedElement !== 'eraser' && selectedElement !== 'none' && selectedElement !== 'image'}
         onDragMove={(e) => setPosition({
           x: e.target.position().x,
           y: e.target.position().y

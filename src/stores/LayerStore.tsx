@@ -45,6 +45,15 @@ class LayerStore {
     if (layer && layer.type === 'brush')
       layer.points = [...(layer.points || []), pointer.x, pointer.y];
   }
+
+  setMoveToTop = (id: string) => {
+    const index = this.layers.findIndex(layer => layer.id === id);
+    console.log('index', JSON.stringify(index))
+    if (index !== -1) {
+      const [layer] = this.layers.splice(index, 1);
+      this.layers.push(layer);
+    }
+  }
 }
 
 const layerStore = new LayerStore();

@@ -36,7 +36,7 @@ const LayerPanel = observer(() => {
         <Html>
           <>
             <div className={styles.container}>
-              {layers.map(layer => (
+              {[...layers].sort((a, b) => Number(a.id) - Number(b.id)).map(layer => (
                 <div
                   key={layer.id}
                   className={`${styles.card} ${selectedLayer?.id === layer.id && styles.selectedCard}`}

@@ -12,7 +12,7 @@ import styles from "./Canvas.module.css";
 const Canvas = observer(() => {
   const { selectedElement, selectedColor, selectedShape, brushStrokeWidth,
     shapeWidth, shapeHeight, shapeFill, setShape } = elementStore;
-  const { layers, selectedLayer, addLayer, setBrushPoints, setSelectedLayer } = layerStore;
+  const { layers, selectedLayer, addLayer, setBrushPoints, setSelectedLayer, setMoveToTop } = layerStore;
   const canvasRef = useRef<HTMLDivElement>(null);
   const [stageDimension, setStageDimension] = useState<{ width: number, height: number }>({ width: 0, height: 0 })
   const [brushLineId, setBrushLineId] = useState<string>('')
@@ -98,6 +98,15 @@ const Canvas = observer(() => {
     setBrushLineId('');
   };
 
+  const handleDragStart = (e: Konva.KonvaEventObject<DragEvent>) => {
+    const id = e.target.id();
+    console.log(id)
+    if (selectedLayer?.id !== id)
+      setSelectedLayer(String(id));
+
+    setMoveToTop(String(id))
+  };
+
   return (
     <div ref={canvasRef} className={styles.canvas}>
       <Stage
@@ -107,6 +116,7 @@ const Canvas = observer(() => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onClick={handleCanvasClick}
+        onDragStart={handleDragStart}
       >
         {layers.map(layer => (
           <Layer key={layer.id}>
@@ -134,7 +144,7 @@ const Canvas = observer(() => {
               strokeWidth={layer.strokeWidth}
               lineCap="round"
               lineJoin="round"
-              draggable
+              draggable={!layer.isEraser}
               globalCompositeOperation={
                 layer.isEraser ? 'destination-out' : 'source-over'
               }

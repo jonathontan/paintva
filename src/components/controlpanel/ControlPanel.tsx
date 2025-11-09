@@ -122,6 +122,7 @@ const ControlPanel = observer(({ isDrawing }: Props) => {
               {constants.shapeTools.map(({ type, icon }, index) => (
                 <IconButton
                   key={index}
+                  disabled={selectedShape === 'circle' && type === 'shapeHeight'}
                   sx={{
                     position: 'absolute',
                     top: 205 + index * 60,

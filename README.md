@@ -1,50 +1,60 @@
-# React + TypeScript + Vite
+# Paintva
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple graphic design web app. Built with **React**, **TypeScript**, **Vite**, **MobX** and **Konva**.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Freeform Brush Tool
+- Color Picker
+- Adjustable Brush Stroke Width and Color
+- Circle and Rectangle Shapes
+- Shape Width, Height and Fill Tools
+- Erase Brush lines
+- Image Uploader
+- Draggable Layers
+- Deletable Layers
 
-## Expanding the ESLint configuration
+## Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Before running this project, make sure you have:
 
-- Configure the top-level `parserOptions` property like this:
+- [Node.js](https://nodejs.org/) v18+ installed
+- npm (comes with Node.js)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Local Installation
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/jonathontan/paintva.git
+cd your-repo
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. **Install dependencies**
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+npm install
 ```
+
+3. **Run the project**
+
+```bash
+npm run dev
+```
+
+5. **Build the project**
+
+```bash
+npm run build
+```
+The build output will be in the dist/ folder.
+
+## Tech Stack & Documentations
+- [React](https://react.dev/) – Frontend library.
+- [MobX](https://mobx.js.org/README.html) - State Management.
+- [Konva](https://konvajs.org/) - Canvas rendering for shapes and freeform drawing.
+- [Material-UI](https://mui.com/material-ui) – UI component library for React.
+- [Iconify](https://iconify.design/) – Icon library and framework.
+- [Vite](https://vitejs.dev/) – Development and build tool.
+- [Node.js](https://nodejs.org/) – JavaScript runtime.
+- [npm](https://www.npmjs.com/) – Package manager.

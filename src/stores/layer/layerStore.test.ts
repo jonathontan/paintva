@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import layerStore, { LayerType } from "./layerStore";
 
-describe('LayerStore', () => {
+describe('layerStore', () => {
   beforeEach(() => {
     layerStore.layers = [];
     layerStore.selectedLayer = null;

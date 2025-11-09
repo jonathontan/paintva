@@ -29,7 +29,7 @@ const Elementbar = observer(() => {
       id: String(layers.length + 1),
       type: 'image',
       src: imageUrl
-    })
+    });
   }
 
   return (
@@ -48,6 +48,7 @@ const Elementbar = observer(() => {
               role={undefined}
               tabIndex={-1}
               sx={style}
+              onClick={() => setElement('none')}
             >
               <Icon icon={element.icon} fontSize={30} />
               <input

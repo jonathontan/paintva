@@ -2,6 +2,7 @@ import Konva from "konva";
 import { observer } from "mobx-react-lite";
 import { useEffect, useRef, useState } from "react";
 import { Circle, Layer, Line, Rect, Stage } from "react-konva";
+import brushCursor from '../../assets/brush.png';
 import elementStore from "../../stores/ElementStore";
 import layerStore from "../../stores/LayerStore";
 import ControlPanel from "../controlpanel/ControlPanel";
@@ -116,6 +117,9 @@ const Canvas = observer(() => {
         onMouseUp={handleMouseUp}
         onClick={handleCanvasClick}
         onDragStart={handleDragStart}
+        style={{
+          cursor: selectedElement === 'brush' ? `url(${brushCursor}) 0 25, auto` : 'default'
+        }}
       >
         {layers.map(layer => (
           <Layer key={layer.id}>

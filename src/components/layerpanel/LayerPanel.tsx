@@ -5,7 +5,7 @@ import { Group, Layer, Rect, Text } from "react-konva";
 import { Html } from "react-konva-utils";
 import colors from "../../colors";
 import constants from "../../constants";
-import layerStore from "../../stores/LayerStore";
+import layerStore from "../../stores/layer/layerStore";
 import styles from "./LayerPanel.module.css";
 
 const LayerPanel = observer(() => {

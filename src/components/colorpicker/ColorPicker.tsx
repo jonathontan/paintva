@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import elementStore from "../../stores/ElementStore";
+import elementStore from "../../stores/element/ElementStore";
 import styles from "./ColorPicker.module.css";
 import { Icon } from "@iconify/react";
 

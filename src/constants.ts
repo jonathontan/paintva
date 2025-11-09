@@ -1,4 +1,4 @@
-import { ShapeType, ToolType } from "./stores/ElementStore";
+import { ShapeType, ToolType } from "./stores/element/ElementStore";
 
 export type shapeToolsType = 'shapeWidth' | 'shapeHeight' | 'shapeFill' | 'none';
 

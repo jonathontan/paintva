@@ -4,8 +4,8 @@ import { observer } from "mobx-react-lite";
 import { ChangeEvent } from "react";
 import colors from "../../colors";
 import constants from "../../constants";
-import elementStore, { ToolType } from "../../stores/ElementStore";
-import layerStore from "../../stores/LayerStore";
+import elementStore, { ToolType } from "../../stores/element/ElementStore";
+import layerStore from "../../stores/layer/layerStore";
 import styles from "./Elementbar.module.css";
 
 const Elementbar = observer(() => {

@@ -6,7 +6,7 @@ import { Group, Layer, Rect, Text, } from "react-konva";
 import { Html } from "react-konva-utils";
 import colors from "../../colors";
 import constants, { shapeToolsType } from "../../constants";
-import elementStore, { BrushType, ShapeType } from "../../stores/ElementStore";
+import elementStore, { BrushType, ShapeType } from "../../stores/element/ElementStore";
 import ColorPicker from "../colorpicker/ColorPicker";
 
 interface Props {

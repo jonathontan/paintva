@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { ShapeType } from "../element/ElementStore";
+import { ShapeType } from "../element/elementStore";
 
 export interface LayerType {
   id: string

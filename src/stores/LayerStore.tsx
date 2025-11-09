@@ -3,7 +3,7 @@ import { ShapeType } from "./ElementStore";
 
 interface LayerType {
   id: string
-  type: 'brush'| 'shape' | 'fill' | 'image'
+  type: 'brush' | 'shape' | 'fill' | 'image'
   color?: string
   shape?: ShapeType
   width?: number
@@ -40,7 +40,7 @@ class LayerStore {
     if (layer) this.selectedLayer = layer;
   }
 
-  setBrushPoints = (id: string, pointer: {x: number, y: number}) => {
+  setBrushPoints = (id: string, pointer: { x: number, y: number }) => {
     const layer = this.layers.find(layer => layer.id === id);
     if (layer && layer.type === 'brush')
       layer.points = [...(layer.points || []), pointer.x, pointer.y];
@@ -48,7 +48,6 @@ class LayerStore {
 
   setMoveToTop = (id: string) => {
     const index = this.layers.findIndex(layer => layer.id === id);
-    console.log('index', JSON.stringify(index))
     if (index !== -1) {
       const [layer] = this.layers.splice(index, 1);
       this.layers.push(layer);

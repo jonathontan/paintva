@@ -8,7 +8,6 @@ interface Props {
 
 const KonvaImage = ({ id, src }: Props) => {
   const [image] = useImage(src, 'anonymous');
-  console.log(image)
 
   return <Image id={id} image={image} x={0} y={0} draggable />
 }

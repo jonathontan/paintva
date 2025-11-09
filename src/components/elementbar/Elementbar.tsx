@@ -24,7 +24,6 @@ const Elementbar = observer(() => {
 
     const image = files[0];
     const imageUrl = URL.createObjectURL(image);
-    console.log(image)
 
     addLayer({
       id: String(layers.length + 1),

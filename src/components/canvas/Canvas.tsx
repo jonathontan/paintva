@@ -100,11 +100,10 @@ const Canvas = observer(() => {
 
   const handleDragStart = (e: Konva.KonvaEventObject<DragEvent>) => {
     const id = e.target.id();
-    console.log(id)
+    setMoveToTop(String(id))
+
     if (selectedLayer?.id !== id)
       setSelectedLayer(String(id));
-
-    setMoveToTop(String(id))
   };
 
   return (

@@ -5,15 +5,13 @@ import { MutableRefObject, useState } from "react";
 import { Group, Layer, Rect, Text, } from "react-konva";
 import { Html } from "react-konva-utils";
 import colors from "../../colors";
-import constants from "../../constants";
+import constants, { shapeToolsType } from "../../constants";
 import elementStore, { BrushType, ShapeType } from "../../stores/ElementStore";
 import ColorPicker from "../colorpicker/ColorPicker";
 
 interface Props {
   isDrawing: MutableRefObject<boolean>;
 }
-
-type ShapeActionType = 'shapeWidth' | 'shapeHeight' | 'none'
 
 const ControlPanel = observer(({ isDrawing }: Props) => {
   const {
@@ -23,10 +21,10 @@ const ControlPanel = observer(({ isDrawing }: Props) => {
   } = elementStore;
   const [position, setPosition] = useState<{ x: number, y: number }>({ x: 20, y: 20 })
   const [showStrokeSlider, setShowStrokeSlider] = useState<boolean>(false);
-  const [selectedShapeAction, setSelectedShapeAction] = useState<ShapeActionType>('none')
+  const [selectedShapeAction, setSelectedShapeAction] = useState<shapeToolsType>('none')
   const [showWidthSlider, setShowWidthSlider] = useState<boolean>(false);
   const [showHeightSlider, setShowHeightSlider] = useState<boolean>(false);
-  const height = selectedElement === 'brush' ? 150 : selectedElement === 'shape' ? 335 : 100
+  const height = selectedElement === 'brush' ? 150 : selectedElement === 'shape' ? 390 : 100
 
   const handleShapeToggle = (type: ShapeType) => {
     if (selectedShape === type)
@@ -45,7 +43,7 @@ const ControlPanel = observer(({ isDrawing }: Props) => {
     }
   };
 
-  const handleShapeActionToggle = (type: ShapeActionType) => {
+  const handleShapeActionToggle = (type: shapeToolsType) => {
     if (selectedShapeAction === type) {
       setSelectedShapeAction('none');
       setShowWidthSlider(false);
@@ -102,7 +100,7 @@ const ControlPanel = observer(({ isDrawing }: Props) => {
           y={10}
         />
         <Html>
-          <ColorPicker />
+          <ColorPicker type="color" top={40} left={30} />
           {selectedElement === 'shape' &&
             constants.shapes.map(({ type, icon }, index) => (
               <IconButton
@@ -121,17 +119,23 @@ const ControlPanel = observer(({ isDrawing }: Props) => {
             ))}
           {selectedElement === 'shape' && (
             <>
-              <IconButton sx={{
-                position: 'absolute',
-                top: 205,
-                left: 20,
-                zIndex: 11,
-                color: selectedShapeAction === 'shapeWidth' ? colors.dwhite : colors.black
-              }}
-                onClick={() => handleShapeActionToggle('shapeWidth')}
-              >
-                <Icon icon="carbon:fit-to-width" fontSize={40} />
-              </IconButton>
+              {constants.shapeTools.map(({ type, icon }, index) => (
+                <IconButton
+                  key={index}
+                  sx={{
+                    position: 'absolute',
+                    top: 205 + index * 60,
+                    left: 20,
+                    zIndex: 11,
+                    color: selectedShapeAction === type ? colors.dwhite : colors.black
+                  }}
+                  onClick={() => {
+                    if (type !== 'shapeFill') handleShapeActionToggle(type)
+                  }}
+                >
+                  <Icon icon={icon} fontSize={40} />
+                </IconButton>
+              ))}
               {showWidthSlider && (
                 <Slider
                   aria-label="Shape Width"
@@ -153,22 +157,6 @@ const ControlPanel = observer(({ isDrawing }: Props) => {
                   }}
                 />
               )}
-            </>
-          )}
-          {selectedElement === 'shape' && (
-            <>
-              <IconButton sx={{
-                position: 'absolute',
-                top: 265,
-                left: 20,
-                zIndex: 11,
-                color: selectedShapeAction === 'shapeHeight' ? colors.dwhite : colors.black
-              }}
-                onClick={() => handleShapeActionToggle('shapeHeight')}
-                disabled={selectedShape === 'circle'}
-              >
-                <Icon icon="carbon:fit-to-height" fontSize={40} />
-              </IconButton>
               {showHeightSlider && (
                 <Slider
                   aria-label="Shape Height"
@@ -190,6 +178,7 @@ const ControlPanel = observer(({ isDrawing }: Props) => {
                   }}
                 />
               )}
+              <ColorPicker type="fill" top={335} left={30} />
             </>
           )}
           {selectedElement === 'brush' && (

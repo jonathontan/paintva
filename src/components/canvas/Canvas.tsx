@@ -11,7 +11,7 @@ import styles from "./Canvas.module.css";
 
 const Canvas = observer(() => {
   const { selectedElement, selectedColor, selectedShape, brushStrokeWidth,
-    shapeWidth, shapeHeight, setShape } = elementStore;
+    shapeWidth, shapeHeight, shapeFill, setShape } = elementStore;
   const { layers, selectedLayer, addLayer, setBrushPoints, setSelectedLayer } = layerStore;
   const canvasRef = useRef<HTMLDivElement>(null);
   const [stageDimension, setStageDimension] = useState<{ width: number, height: number }>({ width: 0, height: 0 })
@@ -29,7 +29,9 @@ const Canvas = observer(() => {
 
   const handleCanvasClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     const clickedLayer = e.target.getAttrs();
-    if (selectedLayer?.id !== clickedLayer.id) setSelectedLayer(String(clickedLayer.id));
+    if (selectedLayer?.id !== clickedLayer.id)
+      setSelectedLayer(String(clickedLayer.id));
+
     if (selectedShape === 'none' && selectedElement !== 'fill') return;
 
     const stage = e.target.getStage();
@@ -42,6 +44,7 @@ const Canvas = observer(() => {
         type: 'shape',
         color: selectedColor,
         shape: selectedShape,
+        fill: shapeFill,
         width: shapeWidth,
         height: shapeHeight,
         x: pointer.x,
@@ -108,10 +111,10 @@ const Canvas = observer(() => {
         {layers.map(layer => (
           <Layer key={layer.id}>
             {layer.type === 'shape' && layer.shape === 'rect' && (
-              <Rect id={layer.id} x={layer.x} y={layer.y} width={layer.width} height={layer.height} stroke={layer.color} draggable />
+              <Rect id={layer.id} x={layer.x} y={layer.y} width={layer.width} height={layer.height} stroke={layer.color} fill={layer.fill} draggable />
             )}
             {layer.type === 'shape' && layer.shape === 'circle' && (
-              <Circle id={layer.id} x={layer.x} y={layer.y} radius={layer.width} stroke={layer.color} draggable />
+              <Circle id={layer.id} x={layer.x} y={layer.y} radius={layer.width} stroke={layer.color} fill={layer.fill} draggable />
             )}
             {layer.type === 'fill' && (
               <Rect id={layer.id} width={stageDimension.width} height={stageDimension.height} fill={layer.color} />

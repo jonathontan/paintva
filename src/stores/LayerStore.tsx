@@ -8,6 +8,7 @@ interface LayerType {
   shape?: ShapeType
   width?: number
   height?: number
+  fill?: string
   points?: number[]
   strokeWidth?: number
   x?: number

@@ -1,5 +1,7 @@
 import { ShapeType, ToolType } from "./stores/ElementStore";
 
+export type shapeToolsType = 'shapeWidth' | 'shapeHeight' | 'shapeFill' | 'none';
+
 const elements: {
   type: ToolType,
   icon: string
@@ -10,12 +12,21 @@ const elements: {
     { type: 'eraser', icon: 'solar:eraser-bold-duotone' }
   ]
 
-  const shapes: {
-    type: ShapeType,
-    icon: string
-  }[] = [
+const shapes: {
+  type: ShapeType,
+  icon: string
+}[] = [
     { type: 'rect', icon: "material-symbols-light:rectangle-outline" },
     { type: 'circle', icon: "material-symbols-light:circle-outline" }
   ]
 
-export default { elements, shapes };
+const shapeTools: {
+  type: shapeToolsType,
+  icon: string
+}[] = [
+    { type: 'shapeWidth', icon: "carbon:fit-to-width" },
+    { type: 'shapeHeight', icon: "carbon:fit-to-height"},
+    { type: 'shapeFill', icon: "fluent:paint-bucket-24-filled"}
+  ]
+
+export default { elements, shapes, shapeTools };

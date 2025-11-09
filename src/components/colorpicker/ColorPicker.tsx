@@ -3,8 +3,14 @@ import elementStore from "../../stores/ElementStore";
 import styles from "./ColorPicker.module.css";
 import { Icon } from "@iconify/react";
 
-const ColorPicker = observer(() => {
-  const { selectedElement, selectedColor, setColor } = elementStore;
+interface Props {
+  type: string
+  top: number,
+  left: number
+}
+
+const ColorPicker = observer(({ type, top, left }: Props) => {
+  const { selectedElement, selectedColor, shapeFill, setColor, setShapeFill } = elementStore;
 
   return (
     <>
@@ -12,16 +18,24 @@ const ColorPicker = observer(() => {
         className={styles.input}
         hidden={selectedElement === 'eraser' || selectedElement === 'none'}
         type="color"
-        value={selectedColor}
-        onChange={(e) => setColor(e.target.value)}
-      />
-      <Icon
-        icon="mingcute:color-picker-fill"
-        className={styles.icon}
+        value={type === 'color' ? selectedColor : shapeFill}
+        onChange={(e) => type === 'color' ? setColor(e.target.value) : setShapeFill(e.target.value)}
         style={{
-          visibility: selectedElement === 'eraser' || selectedElement === 'none' ? 'hidden' : 'visible'
+          top: top,
+          left: left,
+          opacity: type === 'color' ? 1 : 0,
+          zIndex: 11
         }}
       />
+      {type === 'color' && (
+        <Icon
+          icon="mingcute:color-picker-fill"
+          className={styles.icon}
+          style={{
+            visibility: selectedElement === 'eraser' || selectedElement === 'none' ? 'hidden' : 'visible',
+          }}
+        />
+      )}
     </>
   )
 })

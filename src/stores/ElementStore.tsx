@@ -16,6 +16,7 @@ class ElementStore {
 
   shapeWidth: number = 40;
   shapeHeight: number = 40;
+  shapeFill: string = colors.black;
 
   constructor() {
     makeAutoObservable(this);
@@ -47,6 +48,10 @@ class ElementStore {
 
   setShapeHeight = (height: number) => {
     this.shapeHeight = height;
+  }
+
+  setShapeFill = (color: string) => {
+    this.shapeFill = color;
   }
 }
 

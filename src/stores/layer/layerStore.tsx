@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { ShapeType } from "../element/ElementStore";
 
-interface LayerType {
+export interface LayerType {
   id: string
   type: 'brush' | 'shape' | 'fill' | 'image'
   color?: string

@@ -16,7 +16,7 @@ interface Props {
 const ControlPanel = observer(({ isDrawing }: Props) => {
   const {
     selectedElement,
-    selectedShape, shapeWidth, shapeHeight, setShape, setShapeWidth, setShapeHeight,
+    selectedShape, shapeWidth, shapeHeight, shapeFill, setShape, setShapeWidth, setShapeHeight,
     selectedBrush, brushStrokeWidth, setBrush, setBrushStrokeWidth
   } = elementStore;
   const [position, setPosition] = useState<{ x: number, y: number }>({ x: 20, y: 20 })
@@ -127,7 +127,7 @@ const ControlPanel = observer(({ isDrawing }: Props) => {
                     top: 205 + index * 60,
                     left: 20,
                     zIndex: 11,
-                    color: selectedShapeAction === type ? colors.dwhite : colors.black
+                    color: type === 'shapeFill' ? shapeFill : selectedShapeAction === type ? colors.dwhite : colors.black
                   }}
                   onClick={() => {
                     if (type !== 'shapeFill') handleShapeActionToggle(type)

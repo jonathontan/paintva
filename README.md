@@ -27,7 +27,7 @@ Before running this project, make sure you have:
 
 ```bash
 git clone https://github.com/jonathontan/paintva.git
-cd your-repo
+cd paintva
 ```
 
 2. **Install dependencies**

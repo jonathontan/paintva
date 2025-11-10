@@ -35,6 +35,7 @@ class LayerStore {
   removeLayer = (id: string) => {
     this.layers = this.layers.filter(layer => layer.id !== id);
     this.selectedLayer = null;
+    if (this.layers.length === 0) this.layerId = 1;
   }
 
   setSelectedLayer = (id: string) => {

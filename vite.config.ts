@@ -7,5 +7,10 @@ export default defineConfig({
   plugins: [react(),
     nodePolyfills({ include: ["timers"] })
   ],
+  build: {
+    commonjsOptions: {
+      exclude: ['**/*test.ts']
+    }
+  },
   base: "/"
 })

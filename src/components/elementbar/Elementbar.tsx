@@ -10,7 +10,7 @@ import styles from "./Elementbar.module.css";
 
 const Elementbar = observer(() => {
   const { selectedElement, setElement } = elementStore;
-  const { layers, addLayer } = layerStore;
+  const { layerId, addLayer } = layerStore;
 
   const handleToggle = (type: ToolType) => {
     if (selectedElement === type)
@@ -26,7 +26,7 @@ const Elementbar = observer(() => {
     const imageUrl = URL.createObjectURL(image);
 
     addLayer({
-      id: String(layers.length + 1),
+      id: String(layerId),
       type: 'image',
       src: imageUrl
     });

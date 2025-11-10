@@ -13,7 +13,7 @@ import styles from "./Canvas.module.css";
 const Canvas = observer(() => {
   const { selectedElement, selectedColor, selectedShape, brushStrokeWidth,
     shapeWidth, shapeHeight, shapeFill, setShape } = elementStore;
-  const { layers, selectedLayer, addLayer, setBrushPoints, setSelectedLayer, setMoveToTop } = layerStore;
+  const { layers, layerId, selectedLayer, addLayer, setBrushPoints, setSelectedLayer, setMoveToTop } = layerStore;
   const canvasRef = useRef<HTMLDivElement>(null);
   const [stageDimension, setStageDimension] = useState<{ width: number, height: number }>({ width: 0, height: 0 })
   const [brushLineId, setBrushLineId] = useState<string>('')
@@ -41,7 +41,7 @@ const Canvas = observer(() => {
 
     if (selectedElement === 'shape') {
       addLayer({
-        id: String(layers.length + 1),
+        id: String(layerId),
         type: 'shape',
         color: selectedColor,
         shape: selectedShape,
@@ -54,7 +54,7 @@ const Canvas = observer(() => {
       setShape('none')
     } else {
       addLayer({
-        id: String(layers.length + 1),
+        id: String(layerId),
         type: 'fill',
         color: selectedColor
       });
@@ -70,7 +70,8 @@ const Canvas = observer(() => {
     if (!pointer) return
 
     if (selectedElement === 'brush' || selectedElement === 'eraser') {
-      const id = String(layers.length + 1)
+      const id = String(layerId);
+
       addLayer({
         id: id,
         type: 'brush',

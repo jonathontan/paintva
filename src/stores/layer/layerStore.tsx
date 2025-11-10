@@ -20,6 +20,7 @@ export interface LayerType {
 class LayerStore {
   layers: LayerType[] = [];
   selectedLayer: LayerType | null = null;
+  layerId = 1;
 
   constructor() {
     makeAutoObservable(this);
@@ -28,6 +29,7 @@ class LayerStore {
   addLayer = (layer: LayerType) => {
     this.layers.push(layer);
     this.selectedLayer = layer;
+    this.layerId++;
   }
 
   removeLayer = (id: string) => {

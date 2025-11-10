@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import elementStore from "./elementStore";
+import elementStore from "./ElementStore";
 
 describe('elementStore', () => {
   beforeEach(() => {

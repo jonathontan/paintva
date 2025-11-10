@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { useEffect, useRef, useState } from "react";
 import { Circle, Layer, Line, Rect, Stage } from "react-konva";
 import brushCursor from '../../assets/brush.png';
-import elementStore from "../../stores/element/elementStore";
+import elementStore from "../../stores/element/ElementStore";
 import layerStore from "../../stores/layer/layerStore";
 import ControlPanel from "../controlpanel/ControlPanel";
 import KonvaImage from "../konvaimage/KonvaImage";

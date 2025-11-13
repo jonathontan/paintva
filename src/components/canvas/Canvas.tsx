@@ -33,7 +33,7 @@ const Canvas = observer(() => {
     if (selectedLayer?.id !== clickedLayer.id)
       setSelectedLayer(String(clickedLayer.id));
 
-    if (selectedShape === 'none' && selectedElement !== 'fill') return;
+    if (selectedShape === 'none') return;
 
     const stage = e.target.getStage();
     const pointer = stage?.getPointerPosition();
@@ -52,7 +52,7 @@ const Canvas = observer(() => {
         y: pointer.y
       });
       setShape('none')
-    } else {
+    } else if (selectedElement === 'fill') {
       addLayer({
         id: String(layerId),
         type: 'fill',

@@ -38,28 +38,35 @@ const Canvas = observer(() => {
     const stage = e.target.getStage();
     const pointer = stage?.getPointerPosition();
     if (!pointer) return
+    
+    switch (selectedElement) {
+      case 'shape':
+        addLayer({
+          id: String(layerId),
+          type: 'shape',
+          color: selectedColor,
+          shape: selectedShape,
+          fill: shapeFill,
+          width: shapeWidth,
+          height: shapeHeight,
+          x: pointer.x,
+          y: pointer.y
+        });
+        setShape('none');
+        break;
 
-    if (selectedElement === 'shape') {
-      addLayer({
-        id: String(layerId),
-        type: 'shape',
-        color: selectedColor,
-        shape: selectedShape,
-        fill: shapeFill,
-        width: shapeWidth,
-        height: shapeHeight,
-        x: pointer.x,
-        y: pointer.y
-      });
-      setShape('none')
-    } else if (selectedElement === 'fill') {
-      addLayer({
-        id: String(layerId),
-        type: 'fill',
-        color: selectedColor
-      });
+      case 'fill':
+        addLayer({
+          id: String(layerId),
+          type: 'fill',
+          color: selectedColor
+        });
+        break;
+
+      default:
+        break;
     }
-  }
+  };
 
   const handleMouseDown = (e: Konva.KonvaEventObject<MouseEvent>) => {
     if (selectedElement !== 'brush' && selectedElement !== 'eraser') return;
